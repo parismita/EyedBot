@@ -7,7 +7,7 @@ resize.py is for reducing the video size for faster training
 
 Here's the Parameter List:
 
-![Parameters](https://github.com/parismita/ss.png)
+![Parameters](https://github.com/parismita/EyedBot/blob/master/ss.png)
 
 The code :
 * The model has 3 layers of convolution and pooling

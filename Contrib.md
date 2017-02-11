@@ -20,6 +20,8 @@ The code :
 Dataset:
 * Imagenet dataset used
 * numpy train and test data is created in the file resize.py
+* trainX dimension: (800, 3, 100, 100) 
+* trainY dimention: (800,)
 * sklearn used for randomization in file resize.py
 
 Training:

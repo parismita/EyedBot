@@ -21,7 +21,11 @@ Dataset:
 * Imagenet dataset used
 * numpy train and test data is created in the file resize.py
 * sklearn used for randomization in file resize.py
+
 Training:
 * model.fit trains the model
 * Validation set of 40% data taken 
 
+Testing:
+* done in cam.py
+* Stored test prediction in file Trial.txt

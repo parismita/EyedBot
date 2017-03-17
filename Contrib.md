@@ -20,14 +20,15 @@ The code :
 Dataset:
 * Imagenet dataset used
 * numpy train and test data is created in the file resize.py
-* trainX dimension: (800, 3, 100, 100) 
-* trainY dimention: (800,)
+* trainX dimension: (5760, 3, 70, 70) 
+* trainY dimention: (5760,)
 * sklearn used for randomization in file resize.py
 
 Training:
 * model.fit trains the model
-* Validation set of 40% data taken 
+* Validation set of 20% data taken 
 
 Testing:
+* 20% test data seperated via resize file
 * done in cam.py
 * Stored test prediction in file Trial.txt

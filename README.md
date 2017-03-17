@@ -9,11 +9,11 @@ How to use:
 - Clone the Package
 - Goto directory EyedBot via terminal
 
-          `cd EyedBot`
+          ` cd EyedBot `
 
 - Run 
 
-          `sudo -E python cam.py`
+          ` sudo -E python cam.py `
 
 
 To Contribute: Read Contrib.md

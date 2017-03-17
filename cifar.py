@@ -1,7 +1,7 @@
 from resize import trainX,trainY
 import cPickle, zipfile, numpy, imp, theano,random,os,sys,timeit
 from theano import shared
-from resize import trainX,trainY
+from resize import trainX,trainY,testX,testY
 import theano.tensor as T
 from keras.utils import np_utils
 from keras.models import Sequential
@@ -17,7 +17,7 @@ from os import listdir
 from os.path import isfile, join
 
 
-objects = ['book','camera','phone','chair','laptop','sandal','scissor','table','watch']
+objects = ['human','object']
 
 ##############################################################
 
@@ -54,25 +54,25 @@ print trainY.shape[1]
 
 ######################creating model###################################
 model = Sequential()
-model.add(Convolution2D(32, 3, 3, input_shape=(3, 100, 100)))
+model.add(Convolution2D(20, 3, 3, input_shape=(3, 70, 70)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Convolution2D(32, 3, 3))
+model.add(Convolution2D(20, 3, 3))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Convolution2D(64, 3, 3))
+model.add(Convolution2D(40, 3, 3))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 model.add(Flatten())
-model.add(Dense(64))
+model.add(Dense(32))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
-model.add(Dense(9))
+model.add(Dense(2))
 model.add(Activation('sigmoid'))
-model.load_weights('model.h5')
+model.load_weights('smodel.h5')
 
 
 ############################################################################33
@@ -81,21 +81,43 @@ model.compile(loss='binary_crossentropy',
               optimizer='adamax',
               metrics=['accuracy'])
 model.summary() 
-
-#model.fit(trainX,trainY, validation_split=0.4, batch_size=100, nb_epoch=5)
-'''print test_x1.shape
-prediction = model.predict(test_x1)
+'''
+model.fit(trainX,trainY, validation_split=0.2, batch_size=100, nb_epoch=10)
+model.save('smodel.h5')
+prediction = model.predict(testX)
 """
 #saving to text file
 """
+cnt = 0
+cnt1 = 0
+pred = []
 text_file = open("Trial.txt", "w")
+text_file1 = open("Trial1.txt", "w")
 for i in range(prediction.shape[0]):
     text_file.write(str(prediction[i]))
     text_file.write("\n")
-text_file.close()
+    if prediction[i][0]>prediction[i][1]:
+    	pred.append(0)
+    	text_file1.write('0')
+        text_file1.write("\n")
+        cnt = cnt +1
+    else:
+    	pred.append(1)
+    	text_file1.write('1')
+        text_file1.write("\n")
+        cnt1 = cnt1+1
 
-#index = numpy.argmax(prediction)'''
+
+print cnt,cnt1
+s = int(sum(testY))
+error = float(s-cnt1)/float(s)
+print s,error
+text_file.close()
+text_file1.close()
+
+
+#index = numpy.argmax(prediction)
 
 
 #saving the parameters
-#model.save('smodel.h5')
+#model.save('smodel.h5')'''

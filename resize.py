@@ -6,8 +6,8 @@ from os.path import isfile, join
 
 a = [] #trainX
 c = [] #trainY
-data = ['book','camera','cellular_phone','chair','laptop','sandal','scissors','table','watch']
-for i in range(9):
+data = ['human','object']
+for i in range(2):
 	mypath="/home/parismita/machine learning/techevince/dataset/"+str(data[i])
 	#image_files="WP.jpg"
 	image_files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -57,11 +57,13 @@ for i in range(9):
 from sklearn.utils import shuffle
 a,c = shuffle(a,c)
 trainX = numpy.asarray(a)
+print trainX.shape
 trainY = numpy.asarray(c)
 trainX = numpy.transpose(trainX,(0,3,2,1))
-trainY = trainY[:800]
-trainX = trainX[:800]
+testX = trainX[7200:]
+testY = trainY[7200:]
+trainY = trainY[:7200]
+trainX = trainX[:7200]
 print "trainX",trainX.shape,"trainY",trainY.shape
-testX = trainX[800:]
-testY = trainY[800:]
-
+print "testX",testX.shape,"testY",testY.shape
+print testY

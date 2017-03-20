@@ -54,7 +54,11 @@ print trainY.shape[1]
 
 ######################creating model###################################
 model = Sequential()
-model.add(Convolution2D(20, 3, 3, input_shape=(3, 70, 70)))
+model.add(Convolution2D(12, 3, 3, input_shape=(3, 70, 70)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Convolution2D(12, 3, 3))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -62,17 +66,13 @@ model.add(Convolution2D(20, 3, 3))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Convolution2D(40, 3, 3))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Flatten())
-model.add(Dense(32))
+model.add(Dense(15))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(2))
 model.add(Activation('sigmoid'))
-model.load_weights('smodel.h5')
+#model.load_weights('smodel.h5')
 
 
 ############################################################################33
@@ -81,7 +81,7 @@ model.compile(loss='binary_crossentropy',
               optimizer='adamax',
               metrics=['accuracy'])
 model.summary() 
-'''
+
 model.fit(trainX,trainY, validation_split=0.2, batch_size=100, nb_epoch=10)
 model.save('smodel.h5')
 prediction = model.predict(testX)
@@ -99,12 +99,12 @@ for i in range(prediction.shape[0]):
     if prediction[i][0]>prediction[i][1]:
     	pred.append(0)
     	text_file1.write('0')
-        text_file1.write("\n")
+        text_file1.write("\t")
         cnt = cnt +1
     else:
     	pred.append(1)
     	text_file1.write('1')
-        text_file1.write("\n")
+        text_file1.write("\t")
         cnt1 = cnt1+1
 
 
